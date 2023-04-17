@@ -5,8 +5,8 @@
 using namespace std;
 
 #define MAX_N 50
-const double TOLX = 1e-8;
-const double TOLF = 1e-8;
+const double TOLX = 1e-10;
+const double TOLF = 1e-10;
 
 typedef double(*funkcja)(double);
 
@@ -42,7 +42,6 @@ void picard(funkcja funkcja_poczatkowa, funkcja fi, double x) {
     printf("PICARD ------------------------------------------------\n");
     printf("NR ====== X =========== RESIDUUM =========== BLAD =====\n");
     
-
     double estymator_bledu, residuum, x_n;
 
     for (int i = 0; i < MAX_N; i++) {
@@ -70,7 +69,6 @@ void bisekcja(funkcja funkcja_poczatkowa, double a, double b) {
     printf("BISEKCJA ----------------------------------------------\n");
     printf("NR ====== X =========== RESIDUUM =========== BLAD =====\n");
     
-
     double estymator_bledu, residuum, x;
 
     for (int i = 0; i < MAX_N; i++) {

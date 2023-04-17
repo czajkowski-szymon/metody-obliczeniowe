@@ -47,7 +47,6 @@ double delta_3(double x, double y, double z) {
 
 void newton(double x, double y, double z) {
     double estymator_bledu = 0, residuum = 0;
-    //double wektor_n[3] = {x, y, z};
     double wektor_n1[3] = {0.0, 0.0, 0.0};
     double delta[3] = {0.0, 0.0, 0.0};
 
