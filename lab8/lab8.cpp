@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define N_MAX 30
+#define N_MAX 100
 
 string nazwa(int i) {
     switch (i)
@@ -73,7 +73,7 @@ T roznica_wsteczna_3pkt(T x, T h) {
 
 template<typename T>
 T **oblicz(T** tablica) {
-    T** talibca_bledow = new T*[N_MAX];    // Tablica przechowujaca bledy w kolejnych iteracjach
+    T** tablica_bledow = new T*[N_MAX];    // Tablica przechowujaca bledy w kolejnych iteracjach
     T h = 0.1;    // Pierwszy krok
 
     // Przedzial [a, b] gdzie mid to srodek
@@ -82,43 +82,43 @@ T **oblicz(T** tablica) {
     T mid = (a + b) / 2.0;
 
     for (int i = 0; i < N_MAX; ++i) {
-        tablica[i] = new T[8];           // Stworzenie wiersza na wyniki
-        talibca_bledow[i] = new T[8];    // Stworzenie wiersza na bledy
+        tablica[i] = new T[8];           
+        tablica_bledow[i] = new T[8];    
 
         tablica[i][0] = roznica_progresywna_2pkt(a, h);
-        talibca_bledow[i][0] = fabs(pochodna_f(a) - tablica[i][0]);
+        tablica_bledow[i][0] = fabs(pochodna_f(a) - tablica[i][0]);
 
         tablica[i][1] = roznica_centralna_2pkt(mid, h);
-        talibca_bledow[i][1] = fabs(pochodna_f(mid) - tablica[i][1]);
+        tablica_bledow[i][1] = fabs(pochodna_f(mid) - tablica[i][1]);
 
         tablica[i][2] = roznica_wsteczna_2pkt(b, h);
-        talibca_bledow[i][2] = fabs(pochodna_f(b) - tablica[i][2]);
+        tablica_bledow[i][2] = fabs(pochodna_f(b) - tablica[i][2]);
 
         tablica[i][3] = roznica_progresywna_3pkt(a, h);
-        talibca_bledow[i][3] = fabs(pochodna_f(a) - tablica[i][3]);
+        tablica_bledow[i][3] = fabs(pochodna_f(a) - tablica[i][3]);
 
         tablica[i][4] = roznica_progresywna_2pkt(mid, h);
-        talibca_bledow[i][4] = fabs(pochodna_f(mid) - tablica[i][4]);
+        tablica_bledow[i][4] = fabs(pochodna_f(mid) - tablica[i][4]);
 
         tablica[i][5] = roznica_wsteczna_2pkt(mid, h);
-        talibca_bledow[i][5] = fabs(pochodna_f(mid) - tablica[i][5]);
+        tablica_bledow[i][5] = fabs(pochodna_f(mid) - tablica[i][5]);
 
         tablica[i][6] = roznica_wsteczna_3pkt(b, h);
-        talibca_bledow[i][6] = fabs(pochodna_f(b) - tablica[i][6]);
+        tablica_bledow[i][6] = fabs(pochodna_f(b) - tablica[i][6]);
 
-        talibca_bledow[i][7] = h;
+        tablica_bledow[i][7] = h;
 
-        h *= 0.1;    
+        h /= 1.5;    
     }
 
     cout << endl << "Rzedy dokladnosci: " << endl;
     for (int i = 0; i < 7; i++) {
         cout << nazwa(i) << ": ";
-        cout << (log10(talibca_bledow[1][i]) - log10(talibca_bledow[0][i])) /
-                (log10(talibca_bledow[1][7]) - log10(talibca_bledow[0][7])) <<  endl;
+        cout << (log10(tablica_bledow[1][i]) - log10(tablica_bledow[0][i])) /
+                (log10(tablica_bledow[1][7]) - log10(tablica_bledow[0][7])) <<  endl;
     }
     cout <<  endl;
-    return talibca_bledow;
+    return tablica_bledow;
 }
 
 template<typename T>
