@@ -25,7 +25,7 @@ string nazwa(int i) {
         return "roznica progresywna dwupunktowa (srodek) (teoria: 1)";
         break;
     case 5:
-        return "roznica centralna dwupunktowa (srodek) (teoria: 1)";
+        return "roznica wsteczna dwupunktowa (srodek) (teoria: 1)";
         break;
     case 6:
         return "roznica wsteczna trzypunktowa (prawy brzeg) (teoria: 2)";
@@ -68,7 +68,7 @@ T roznica_progresywna_3pkt(T x, T h) {
 
 template < typename T >
 T roznica_wsteczna_3pkt(T x, T h) {
-    return ((1.0 / 2.0) * sin(x - 2.0 * h) - 2.0 * sin(x - h) + (3.0 / 2.0) * sin(x)) / h;
+    return ((1.0 / 2.0) * sin(x - 2.0*h) - 2.0 * sin(x - h) + (3.0 / 2.0) * sin(x)) / h;
 }
 
 template<typename T>
@@ -100,7 +100,7 @@ T **oblicz(T** tablica) {
         tablica[i][4] = roznica_progresywna_2pkt(mid, h);
         talibca_bledow[i][4] = fabs(pochodna_f(mid) - tablica[i][4]);
 
-        tablica[i][5] = roznica_centralna_2pkt(mid, h);
+        tablica[i][5] = roznica_wsteczna_2pkt(mid, h);
         talibca_bledow[i][5] = fabs(pochodna_f(mid) - tablica[i][5]);
 
         tablica[i][6] = roznica_wsteczna_3pkt(b, h);
